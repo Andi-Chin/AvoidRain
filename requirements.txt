@@ -1,0 +1,4 @@
+readchar
+termcolor
+googletrans
+namegenerator
