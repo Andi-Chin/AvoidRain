@@ -10,6 +10,7 @@ import random
 from pathFinder import mazeShortestPath
 from enemies import Enemy
 from victim import Victim
+print("hello there!");
 
 
 termcolor.cprint("JackLesher, Andi, Kobe, and BenjaminNamika1 present...", "green")
