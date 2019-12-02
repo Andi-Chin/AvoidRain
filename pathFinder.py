@@ -1,7 +1,7 @@
 from typing import List
 from math import inf
 from copy import deepcopy
-# I first protoyped this program in C++, check our my repl profile for orginal program
+# I first protoyped this program in C++, check our repl profile for orginal program
 
 # for debugging purposes-turns a matrix into formatted string 
 def strMt(m):

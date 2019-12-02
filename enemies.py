@@ -2,6 +2,7 @@ import random, os, time
 from pathFinder import mazeShortestPath
 from typing import List
 
+       
 # checks whether the given coordinates are in bound
 def inBound(board: List[List[int]], i: int, j: int) -> bool:
 	return 0 <= i and i < int(len(board)) and 0 <= j and j < int(len(board[0]))
@@ -27,37 +28,13 @@ class Enemy:
 	def findPathTo(self, lvl, destX, destY):
 		# if distance is too little, the enemy will make an educated guess, since pathfinding takes too long
 
-		# if distance(self.x, self.y, destX, destY) <= 3:
 		if self.path == []:
 			self.path=[];
-			print("finding optimal path....");
+			print("Robot: *finding optimal path....*");
 			self.path = mazeShortestPath(lvl, [self.y, self.x], [destY, destX]);
 			for coord in self.path:
 				lvl[coord[0]][coord[1]] = '10';
-		# else:
-
-		# 	minDist = None;
-		# 	minX = None;
-		# 	minY = None;
-		# 	dirs = [[0, 1], [1, 0], [-1, 0], [0, -1]];
-		# 	for dir in dirs:
-		# 		nx = self.x + dir[0];
-		# 		ny = self.y + dir[1];
-
-		# 		dis = distance(nx, ny, destX, destY);
-		# 		if inBound(lvl, ny, nx):
-		# 			if (minDist == None or dis < minDist):
-		# 				minDist = dis;
-		# 				minX = nx;
-		# 				minY = ny;
-
-		# 	self.path = [[minY, minX]];
-		# 	self.pathIndex = 0;
 			
-
-
-
-
 
 	def move(self):
 		# enemy only finds its path if it has a path to follow, 
@@ -88,9 +65,10 @@ class Enemy:
 
 	def attack(self, lvl):
 		os.system("clear")
-		print("A "+self.enemy_type+" is engaging you in battle")
+		print("A "+ str(self.enemy_type) +" is engaging you in battle")
+		
 		time.sleep(1)
-		rolls = input("how many times do you want to roll the dice(1-10 times)? (the average between 2-6 is taken)")
+		rolls = input("how many times do you want to roll the dice(1-10 times)? \n (the average between 2-6 is taken)")
 		try:
 			int(rolls)
 		except TypeError:
@@ -112,7 +90,6 @@ class Enemy:
 		elif enemy_roll<roll_average:
 			print("The enemy lost "+str(abs(enemy_roll-roll_average))+" live(s)!")
 			self.lives+= enemy_roll-roll_average
-			print(self.lives)
 			if self.lives<=0:
 				print("Yay you killed the enemy")
 
@@ -127,12 +104,6 @@ class Enemy:
 		
 
 	def get_symbol(self):
-
-		# if self.enemy_type=="Einfacher Fiend":
-		self.lives=2 
-		self.atk = 1 
-		return "☿"
-		
 
 		#This enemy's info is: health=2/2 and attack=1 and speed=moves 1 space when the player moves 1 space.
 		if self.enemy_type=="schneller Junge":
@@ -159,4 +130,9 @@ class Enemy:
 			self.lives = 2
 			self.atk = 5
 			return "💣"
-		#This enemy's info is: health=2/2 and attack=5 and speed=moves 2 spaces when the player moves 1 space.
+			
+			#This enemy's info is: health=2/2 and attack=5 and speed=moves 2 spaces when the player moves 1 space.
+
+		self.lives= 2
+		self.atk = 1 #what do you mean I deleted the first one so now that is the first one 
+		return "☿"

@@ -11,26 +11,28 @@ from pathFinder import mazeShortestPath
 from enemies import Enemy
 from victim import Victim
 
-time
-
 
 termcolor.cprint("JackLesher, Andi, Kobe, and BenjaminNamika1 present...", "green")
-#time.sleep(3)
+time.sleep(3)
 termcolor.cprint("Blatherskite!", "red")
 termcolor.cprint("Welcome to our game!", "yellow")
-#time.sleep(2);
+termcolor.cprint("please resize the console to at least 7 inches(about half of your screen)", "yellow");
+time.sleep(2);
 s = """You have created a disease and you must share it with the world! \n
 This is how it works:
-'█' represents a wall. 'o' represents you, the player. '☿ ,👿 ,👹 ,🚢 ,🕊️ , and💣' represent enemys who think the world should stay around a for little longer. \n
+'█' represents a wall. 'o' represents you, the player. 'e' represent enemys who think the world should stay around a for little longer. 
+'V' represents a victim. If a victim is stuck in a unreachable space, just refresh.\n
 Have fun! Go destroy the world like there's no tomorrow
 (Because there won't after you infect everyone)! 
-This is a WASD maze game. This is a very fragile program. Move slowly so you won't break it. Based on how fast you move your character, you may experience extreme lagging.\n \nThis game is cooler if you play this in the background: https://www.youtube.com/watch?v=pQHbFsZbEcg&t=453s
-Here are your victims:""" 
+This is a WASD maze game. This is a very fragile program. 
+Move slowly so you won't break it. Based on how fast you move your character, 
+you may experience extreme lagging.
+This game is cooler if you play this in the background: https://www.youtube.com/watch?v=pQHbFsZbEcg&t=453s. Here are your victims to FEAST UPON:""" 
 # hey we could use termcolor
 disease=input("What will you name your disease?")
-print("Look out world! Here comes the ",disease," disease!")
+print("Look out world! Here comes the",disease,"disease!")
 termcolor.cprint(s, "magenta");
-#time.sleep(20); #change back to 15 when done 
+input("enter to continue"); #change back to 25 when done 
 
 
 lvl_1 = [
@@ -111,9 +113,10 @@ player = Player()
 
 
 def random_enemy():
-    list_of_enemies = ["Einfacher Fiend","schneller Junge","Der Fels der Fels hält den Fels nicht auf","Bismark","Cher Ami","Wir sehen uns im großen Jenseits,Dummkopf"]
-    random.shuffle(list_of_enemies)
-    return list_of_enemies[0]
+	list_of_enemies = ["Einfacher Fiend","schneller Junge","Der Fels der Fels hält den Fels nicht auf","Bismark","Cher Ami","Wir sehen uns im großen Jenseits,Dummkopf"]
+	random.shuffle(list_of_enemies)
+	time.sleep(5)
+	return list_of_enemies[0]
 
 def random_x_y(lvl):
     x=random.randint(0,len(lvl[0])-1)
@@ -132,7 +135,7 @@ def print_maze(lvl, enemyList):
 			vic.catchDisease(victimList, lvl);
 			if victimList==[]:
 				os.system("clear")
-				print("Congraduations!!")
+				print("Congratulations!!")
 				time.sleep(0.5)
 				print("You Shared your disease with everybody!")
 
@@ -148,15 +151,15 @@ def print_maze(lvl, enemyList):
 	for i in dead:
 		del enemyList[i]
 	
-	if len(enemyList)<=1:
-		enemy = (random_x_y(lvl_1),random_enemy())
+	# if len(enemyList)<=1:
+	# 	enemy = (random_x_y(lvl_1),random_enemy())
 	
 
 	for y in range(len(lvl)):
 		for x in range(len(lvl[0])):
 			if y == player.y and x == player.x:
 				print("o" , end = "");
-			if lvl[y][x] == '0':
+			elif lvl[y][x] == '0':
 				print(" ",end="")
 			elif lvl[y][x] == '1':
 				print("█",end="")#termcolor.colored("█","grey"),end="")
@@ -164,6 +167,9 @@ def print_maze(lvl, enemyList):
 				for i in range(len(enemyList)):
 					if y==enemyList[i].y and x == enemyList[i].x:
 						print(enemyList[i].enemy_symbol,end="")
+					else:
+						print("☿",end="")
+				# print("e",end="")
 				lvl[y][x] = '0'; #clearing them from the screen after drawing
 			elif lvl[y][x] == '5':
 				termcolor.cprint("█","grey",end="") #secret entrances
@@ -172,11 +178,11 @@ def print_maze(lvl, enemyList):
 			elif lvl[y][x] == '7':
 				termcolor.cprint("█","red",end="") # start pad
 			elif lvl[y][x] == '8':
-				print("█",end="") # end pad
+				print("██",end="") # end pad
 			elif lvl[y][x] == '10':
 				termcolor.cprint("*", "blue", end = "");
 			elif lvl[y][x] == '11':
-				print("😃", end = "");
+				print("V", end = "");
             
 
 		print();
@@ -186,7 +192,7 @@ def print_maze(lvl, enemyList):
 
 
 def newinput(): 
-    stdout.write("\u001b[31mDisease Name: " + disease + " || health: " + str(player.health) + "/4\u001b[37m")
+    stdout.write("\u001b[31mDisease Name: " + disease + "\u001b[37m") #+ str(player.health) + "/4\u001b[37m")
     
     #\u001b[31m
     #\u001b[37m
@@ -200,11 +206,11 @@ enemyList = [];
 # e1 = Enemy(xx,yy, "Einfacher Fiend")
 # xx,yy=random_x_y(lvl_1) # 2 different enemies
 # e2 = Enemy(xx,yy, random_enemy())
-# # e1.findPathTo(lvl_1, player.x, player.y);
+# e1.findPathTo(lvl_1, player.x, player.y);
 # enemyList.append(e1);
 # enemyList.append(e2)
-e1 = Enemy(2, 2);
-enemyList.append(e1);
+#enemyList.append(Enemy())
+enemyList.append(Enemy(2, 2,enemy_type=random_enemy()));
 
 while True:
     os.system("clear")
