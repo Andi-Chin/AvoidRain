@@ -114,6 +114,7 @@ def makeMg(mG: List[List[int]], vts: List[Vert], board: List[List[int]]) -> None
 					if (inBound(board, ni, nj)):
 						if (validTile(board[ni][nj])):
 							addUndir(mG, vG[i][j], vG[ni][nj], 1);
+        
 			
 # finds the shortest path given a maze/board
 def mazeShortestPath(board: List[List[int]], src: List[int], dest: List[int]) -> List[List[int]]:
@@ -151,18 +152,3 @@ def mazeShortestPath(board: List[List[int]], src: List[int], dest: List[int]) ->
   
 	return coords
 
-# # 0 meaning air, 1 means object
-# board: List[List[int]] = [
-# 	list("01111"),
-# 	list("00111"),
-# 	list("10001"),
-# 	list("11011"),
-# 	list("10000"),
-# ];
-
-# coords = mazeShortestPath(board, [1, 1], [4, 1]);
-# for coord in coords:
-# 	board[coord[0]][coord[1]] = 9
-
-
-# print(strMt(board));
